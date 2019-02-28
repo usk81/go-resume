@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimal-ui">
+    <title>{{ .Basics.Name }}</title>
+    <link href="//fonts.googleapis.com/css?family=Merriweather:400,300,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/print.css" rel="stylesheet" type="text/css" media="print">
+</head>
+<body>
+    <div class="resume-wrapper">
+        <article class="paper">
+            <header>
+                <div class="header-content">
+                    {{- if .Basics.Image }}
+                    <div class="header-pic">
+                        <img src="{{ .Basics.Image }}" class="pic" />
+                    </div>
+                    {{- end}}
+                    <div class="header-text">
+                        <p>{{ .Basics.Name }}</p>
+                        <p class="subtitle">{{ .Basics.Label }}</p>
+                    </div>
+                </div>
+            </header>
+            <div class="content-wrapper">
+                <!-- CONTACT -->
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat">
+                            Contact
+                        </div>
+                        <div class="content-text">
+                            {{- if .Basics.URL}}
+                            <ul>
+                                <li>Website</li>
+                                <li>{{ .Basics.URL }}</li>
+                            </ul>
+                            {{- end}}
+                            <ul>
+                                <li>Email</li>
+                                <li>{{ .Basics.Email }}</li>
+                            </ul>
+                            <ul>
+                                <li>Phone</li>
+                                <li>{{ .Basics.Phone }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                {{if or .Basics.Location.City .Basics.Location.Address }}
+                <!-- LOCATION -->
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat">
+                            Location
+                        </div>
+                        <div class="content-text">
+                            {{if .Basics.Location.Address }}
+                            <ul>
+                                <li>Address</li>
+                                <li>{{ .Basics.Location.Address }}</li>
+                            </ul>
+                            {{- end}}
+                            {{if and .Basics.Location.City .Basics.Location.PostalCode }}
+                            <ul>
+                                <li>Postal Code & City</li>
+                                <li>{{ .Basics.Location.PostalCode }} {{ .Basics.Location.City }}</li>
+                            </ul>
+                            {{- end}}
+                            {{if .Basics.Location.Region }}
+                            <ul>
+                                <li>Region</li>
+                                <li>{{ .Basics.Location.Region }}</li>
+                            </ul>
+                            {{- end}}
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+                {{range $i, $work := .Work }}
+                {{if eq $i 0}}
+                <section class="content">
+                {{else}}
+                <section class="content work-content">
+                {{- end}}
+                    <div class="row">
+                        <div class="content-cat big-text">
+                            {{if eq $i 0}}
+                            Work Experience
+                            {{- end}}
+                            {{if $work.StartDate}}
+                            {{if $work.EndDate}}
+                            <p>{{ $work.StartDate }} till {{ $work.EndDate }}</p>
+                            {{else}}
+                            <p>{{ $work.StartDate }} till today</p>
+                            {{- end}}
+                            {{- end}}
+                        </div>
+                        {{if $work.Position }}
+                        <div class="content-text work-listing education-listing">
+                            {{if eq $i 0}}
+                            <p style="margin-top:2.4em;">
+                            {{- else -}}
+                            <p>
+                            {{- end -}}
+                                {{if $work.Name}}
+                                {{if $work.URL}}
+                                <strong>{{ $work.Position }}</strong> at <strong><a href="{{ $work.URL }}">{{ $work.Name }}:</a></strong>
+                                {{- else -}}
+                                <strong>{{ $work.Position }}</strong> at <strong>{{ $work.Name }}:</strong>
+                                {{- end}}
+                                {{- else -}}
+                                <strong>{{ $work.Position }}:</strong>
+                                {{- end}}
+                            </p>
+                            {{if $work.Summary}}<p>{{ $work.Summary }}</p>{{end}}
+                            {{range $work.Highlights}}
+                            <p class="highlight">{{ . }}</p>
+                            {{- end}}
+                        </div>
+                        {{- end}}
+                    </div>
+                </section>
+                {{- end}}
+                {{range .Volunteer}}
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat big-text">
+                            {{if .Organization -}}
+                            {{ .Organization }}
+                            {{- end}}
+                            {{if and .StartDate .EndDate}}
+                            <p>{{ .StartDate }} till {{ .EndDate }}</p>
+                            {{- end -}}
+                        </div>
+                        <div class="content-text work-listing">
+                            {{if .Summary}}
+                            <p>{{ .Summary }}</p>
+                            {{- end}}
+                            {{range .Highlights}}
+                            <p class="highlight">{{ . }}</p>
+                            {{- end}}
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+                {{range $i, $education := .Education }}
+                {{if eq $i 0 -}}
+                <section class="content">
+                {{- else -}}
+                <section class="content education-content">
+                {{- end}}
+                    <div class="row">
+                        <div class="content-cat big-text">
+                            Education
+                            {{if and $education.StartDate $education.EndDate}}
+                            <p>{{ $education.StartDate }} till {{ $education.EndDate }}</p>
+                            {{- end}}
+                        </div>
+                        <div class="content-text work-listing education-listing">
+                            {{if eq $i 0 -}}
+                            <p class="heading" style="margin-top:2.35em;">{{ $education.Institution }}</p>
+                            {{- else -}}
+                            <p class="heading">{{ $education.Institution }}</p>
+                            {{- end}}
+                            <p class="highlight">
+                                {{if $education.StudyType -}}
+                                {{ $education.StudyType }}:
+                                {{- end -}}
+                                <i>{{ $education.Area }} {{if $education.GPA}}({{ $education.GPA }}){{end}}</i>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+                {{range .Awards}}
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat big-text">
+                            Awards
+                            <p>{{ .Title }}</p>
+                            <p style="margin-top:0.25em;">{{ .Date }}</p>
+                        </div>
+                        <div class="content-text work-listing">
+                            <strong><p class="heading">{{ .Awarder }}</p></strong>
+                            <p class="highlight">{{ .Summary }}</p>
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+                {{if .Skills}}
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat">
+                            Skills
+                        </div>
+                        <div class="content-text skills-listing">
+                            {{range .Skills}}
+                            <p>
+                                <span class="name">
+                                    <strong>
+                                        {{ .Name }}
+                                    </strong>
+                                </span>
+                                {{if .Level}}
+                                <span>({{ .Level }}):</span>
+                                {{- end}}
+                                {{- if .Keywords}}
+                                {{commalist .Keywords}}
+                                {{- end}}
+                            </p>
+                            {{- end}}
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+                {{- if .Languages -}}
+                <!-- LANGUAGE -->
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat">
+                            Languages
+                        </div>
+                        <div class="content-text">
+                            {{range .Languages}}
+                            <ul>
+                                <li>{{ .Language }}</li>
+                                <li>{{ .Fluency }}</li>
+                            </ul>
+                            {{- end}}
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+                {{if .Basics.Profiles}}
+                <!-- PROFILES -->
+                <section class="content profiles">
+                    <div class="row">
+                        <div class="content-cat">
+                            Profiles
+                        </div>
+                        <div class="content-text profiles-listing">
+                            {{range .Basics.Profiles}}
+                            <ul>
+                                <li>{{ .Network }} </li>
+                                <li><a href="{{ .URL }}" target="_blank">{{ .UserName }}</a></li>
+                            </ul>
+                            {{- end}}
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+                {{if .Interests}}
+                <section class="content">
+                    <div class="row">
+                        <div class="content-cat">
+                            Interests
+                        </div>
+                        <div class="content-text skills-listing">
+                            {{range .Interests}}
+                            <p>
+                                <span class="name">
+                                    <strong>
+                                        {{ .Name }}{{if .Keywords}}:{{end}}
+                                    </strong>
+                                </span>
+                                {{- if .Keywords}}
+                                {{commalist .Keywords}}
+                                {{- end}}
+                            </p>
+                            {{- end}}
+                        </div>
+                    </div>
+                </section>
+                {{- end}}
+            </div>
+        </article>
+    </div>
+</body>
+</html>
