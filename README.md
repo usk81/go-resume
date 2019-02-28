@@ -29,7 +29,7 @@ resume export [your template directory path] [output directory path] [your resum
 
 i.g.
 ```bash
-resume validate $GOPATH/github.com/usk81/themes/html ~/ $GOPATH/github.com/usk81/tests/resume.json 
+resume export $GOPATH/github.com/usk81/themes/html ~/ $GOPATH/github.com/usk81/tests/resume.json 
 ```
 
 ## Installation
