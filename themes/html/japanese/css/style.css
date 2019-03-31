@@ -1,0 +1,226 @@
+@page {
+    size: A3 landscape;
+    margin: 0;
+  }
+  .quiet-header {
+    font-size: 80%;
+    color: dimgray;
+  }
+  .flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+  body {
+    font: 12pt "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "HG明朝E", "ＭＳ Ｐ明朝", "ＭＳ 明朝", serif;
+  }
+  @media screen {
+    #resume {
+      background: whitesmoke;
+    }
+  }
+  @media print {
+    #resume {
+      width: 420mm;
+      display: flex;
+      flex-direction: row;
+    }
+  }
+  #resume * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+  }
+  #resume rt {
+    height: 0;
+    line-height: 1em;
+    font-size: 0.5em;
+  }
+  #resume .page {
+    width: 210mm;
+    height: 296.9mm;
+    padding: 24mm 24mm;
+    position: relative;
+    background: white;
+  }
+  @media screen {
+    #resume .page {
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    #resume .page:first-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+  #resume .page:first-of-type > :nth-child(2),
+  #resume .page:first-of-type > :nth-child(3) {
+    width: 80%;
+  }
+  #resume #portrait {
+    width: 30mm;
+    height: 40mm;
+    position: absolute;
+    top: 36mm;
+    right: 24mm;
+    border-style: dotted;
+    border-width: 1px;
+    text-align: center;
+    color: dimgray;
+  }
+  #resume #portrait .fix-padding {
+    padding: 0.5rem;
+  }
+  #resume .building {
+    width: 100%;
+    border: solid 3px black;
+  }
+  #resume .building:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  #resume table.building {
+    border-collapse: collapse;
+  }
+  #resume table.building th,
+  #resume table.building td {
+    border: 1px solid black;
+  }
+  #resume .floor {
+    display: flex;
+    flex-direction: row;
+    align-content: start;
+    width: 100%;
+  }
+  #resume .floor:not(:last-child) {
+    border-bottom: solid 1px black;
+  }
+  #resume .room {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  #resume .room:not(:last-child) {
+    border-right: solid 1px black;
+  }
+  #resume .content {
+    overflow: hidden;
+  }
+  #resume .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  #resume .title > h1 {
+    font: 180% "ヒラギノ角ゴ Pro W3", "メイリオ", Osaka, Arial, Verdana, "ＭＳ Ｐゴシック", sans-serif;
+    letter-spacing: 1em;
+    padding: 0.5rem;
+  }
+  #resume .title > time {
+    padding: 0.5rem;
+  }
+  #resume .info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  #resume .info > h1 {
+    font-size: 80%;
+    color: dimgray;
+    width: 4.5em;
+    text-align: center;
+    margin-right: 0.5rem;
+    line-height: 1.2em;
+    height: 1.2em;
+  }
+  #resume .info p {
+    line-height: 1.2em;
+    height: 1.2em;
+    margin-left: 0.5rem;
+    flex: 1;
+  }
+  #resume .info p.with-ruby {
+    height: 2.4em;
+    line-height: 2.4em;
+    height: 2.5em;
+  }
+  #resume .info p.with-ruby ruby:not(:last-child) {
+    margin-right: 0.5em;
+  }
+  #resume .events {
+    table-layout: fixed;
+  }
+  #resume .events col.year-col {
+    width: 5em;
+  }
+  #resume .events col.month-col {
+    width: 4em;
+  }
+  #resume .events tr {
+    line-height: 1.8em;
+    height: 1.8em;
+  }
+  #resume .events th {
+    text-align: center;
+  }
+  #resume .events td {
+    white-space: nowrap;
+  }
+  #resume .events thead th {
+    font-size: 80%;
+    color: dimgray;
+  }
+  #resume .events tfoot td {
+    text-align: right;
+    padding: 0 0.5rem;
+  }
+  #resume .events .year,
+  #resume .events .month {
+    text-align: center;
+  }
+  #resume .events .event {
+    padding: 0 0.5rem;
+  }
+  #resume .events .continuous {
+    text-indent: 0.5rem;
+  }
+  #resume .promotion > h1 {
+    font-size: 80%;
+    color: dimgray;
+    padding: 0 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  #resume .promotion > div {
+    line-height: 1.2em;
+    height: 6em;
+    font-size: 85%;
+  }
+  #resume .promotion > div > p {
+    text-indent: 0.5rem;
+  }
+  #resume #post {
+    margin-bottom: 0.5rem;
+  }
+  #resume .mail,
+  #resume .phone {
+    font-family: "Consolas", "Menlo";
+  }
+  #resume #name > p {
+    font-size: 180%;
+    letter-spacing: 0em;
+  }
+  #resume #birthday {
+    width: 75%;
+  }
+  #resume #sex {
+    width: 25%;
+  }
+  #resume #address {
+    line-height: 2.4em;
+    height: 5em;
+  }
+  #resume .sign {
+    text-align: right;
+    font: 80% "ヒラギノ角ゴ Pro W3", "メイリオ", Osaka, Arial, Verdana, "ＭＳ Ｐゴシック", sans-serif;
+    font-style: italic;
+    color: dimgray;
+    padding: 0.5rem;
+  }
