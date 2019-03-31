@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimal-ui">
+    <title>{{ .Basics.Name }}</title>
+    <link href="//fonts.googleapis.com/css?family=Merriweather:400,300,700" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div id="resume">
+        <div class="page">
+            {{- if .Basics.Image }}
+            <aside id="portrait">
+                <img src="{{ .Basics.Image }}" width="110" height="150" />
+            </aside>
+            {{- else }}
+            <aside id="portrait" class="fix-padding">
+                <h1>写真</h1>
+                <p>縦40mm
+                    <br>横30mm</p>
+            </aside>
+            {{- end }}
+            <header class="title">
+                <h1>履歴書</h1>
+                <time id="today">{{ nowJP }}現在</time>
+            </header>
+            <article id="basics" class="building">
+                <div class="floor">
+                    <section id="name" class="room info">
+                        <h1>氏名</h1>
+                        <p class="content with-ruby">
+                            {{- $names := ruby .Basics.Name .Japanese.NameRuby }}
+                            {{- range $names }}
+                            {{- if .Ruby }}
+                            <ruby>{{ .Name }}<rt>{{ .Ruby }}</rt></ruby>
+                            {{- else }}
+                            {{ .Name }}
+                            {{- end }}
+                            {{- end }}
+                        </p>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="birthday" class="room info">
+                        <h1>生年月日</h1>
+                        <p class="content">
+                            {{if .Japanese.Birthday }}{{ year .Japanese.Birthday }}年{{ month .Japanese.Birthday }}月{{ day .Japanese.Birthday }}日 (満{{ age .Japanese.Birthday }}歳){{ end }}
+                        </p>
+                    </section>
+                    <section id="sex" class="room info">
+                        <h1>性別</h1>
+                        <p class="content">{{ .Japanese.Gender }}</p>
+                    </section>
+                </div>
+            </article>
+            <article id="contact" class="building">
+                <div class="floor">
+                    <section id="address-with-post" class="room info">
+                        <h1>現住所</h1>
+                        <div>
+                            <p class="content" id="post">〒{{ .Basics.Location.PostalCode }}</p>
+                            <p class="content with-ruby" id="address">
+                                {{if .Japanese.LocationRuby.Region }}<ruby>{{ .Basics.Location.Region }}<rt>{{ .Japanese.LocationRuby.Region }}</rt></ruby>{{ else }}{{ .Basics.Location.Region }}{{ end }}
+                                {{if .Japanese.LocationRuby.City }}<ruby>{{ .Basics.Location.City }}<rt>{{ .Japanese.LocationRuby.City }}</rt></ruby>{{ else }}{{ .Basics.Location.City }}{{ end }}
+                                {{if .Japanese.LocationRuby.Address }}<ruby>{{ .Basics.Location.Address }}<rt>{{ .Japanese.LocationRuby.Address }}</rt></ruby>{{ else }}{{ .Basics.Location.Address }}{{ end }}
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="alt-address" class="room info">
+                        <h1>連絡先</h1>
+                        <p>同上</p>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="telephone" class="room info">
+                        <h1>電話</h1>
+                        <p class="content phone">{{ .Basics.Phone }}</p>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="mail" class="room info">
+                        <h1>E-mail</h1>
+                        <p class="content mail">{{ .Basics.Email }}</p>
+                    </section>
+                </div>
+            </article>
+            <table id="history" class="building events">
+                <colgroup>
+                    <col span="1" class="year-col">
+                    <col span="1" class="month-col">
+                    <col span="1" class="event-col">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>年</th>
+                        <th>月</th>
+                        <th>学歴・職歴</th>
+                    </tr>
+                </thead>
+                <tbody id="education">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>学歴</th>
+                    </tr>
+                    {{- range .Education }}
+                    {{- if .StartDate }}
+                    <tr>
+                        <td class="content year">{{ year .StartDate }}</td>
+                        <td class="content month">{{ month .StartDate }}</td>
+                        <td class="content event">{{ .Institution }} 入学</td>
+                    </tr>
+                    {{- end }}
+                    {{- if .EndDate }}
+                    <tr>
+                        <td class="content year">{{ year .EndDate }}</td>
+                        <td class="content month">{{ month .EndDate }}</td>
+                        <td class="content event">{{ .Institution }} 卒業</td>
+                    </tr>
+                    {{- end }}
+                    {{- end }}
+                </tbody>
+                <tbody id="work">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>職歴</th>
+                    </tr>
+                    {{- if .Work }}
+                    {{- range .Work }}
+                    {{- if .StartDate }}
+                    <tr>
+                        <td class="content year">{{ year .StartDate }}</td>
+                        <td class="content month">{{ month .StartDate }}</td>
+                        <td class="content event">{{ .Name }} 入社</td>
+                    </tr>
+                    {{- end }}
+                    {{- if .EndDate }}
+                    <tr>
+                        <td class="content year">{{ year .EndDate }}</td>
+                        <td class="content month">{{ month .EndDate }}</td>
+                        <td class="content event">{{ .Name }} 退社</td>
+                    </tr>
+                    {{- end }}
+                    {{- end }}
+                    {{- else }}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td class="event">なし</td>
+                    </tr>
+                    {{- end }}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>以上</td>
+                    </tr>
+                    <tr class="empty">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="page">
+            <article id="promotions" class="building">
+                <div class="floor">
+                    <section id="motivation" class="room promotion">
+                        <h1>志望動機</h1>
+                        <div class="content writing">
+                            <p class="paragraph">{{ .Japanese.ReasonForApplying }}</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="study" class="room promotion">
+                        <h1>得意科目及び研究課題</h1>
+                        <div class="content writing">
+                            <p class="paragraph"></p>
+                        </div>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="experience" class="room promotion">
+                        <h1>スポーツ・クラブ活動・文化活動などの体験から得たもの</h1>
+                        <div class="content writing">
+                            <p class="paragraph"></p>
+                        </div>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="hobby" class="room promotion">
+                        <h1>趣味・特技</h1>
+                        <div class="content writing">
+                            <p class="paragraph">
+                                {{- range $i, $interest := .Interests }}
+                                {{if ne $i 0 }}、{{ end }}{{ $interest.Name }}
+                                {{- end }}
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="floor">
+                    <section id="strong" class="room promotion">
+                        <h1>長所・特徴</h1>
+                        <div class="content writing">
+                            <p class="paragraph"></p>
+                        </div>
+                    </section>
+                </div>
+            </article>
+            <table id="license" class="building events">
+                <colgroup>
+                    <col span="1" class="year-col">
+                    <col span="1" class="month-col">
+                    <col span="1" class="event-col">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>年</th>
+                        <th>月</th>
+                        <th>免許・資格</th>
+                    </tr>
+                    {{- range .Awards }}
+                    <tr>
+                        <td class="content year">{{ year .Date }}</td>
+                        <td class="content month">{{ month .Date }}</td>
+                        <td class="content event">{{ .Title }}</td>
+                    </tr>
+                    {{- end }}
+                </tbody>
+                <tfoot>
+                    {{- $a := len .Awards }}
+                    {{- $i := sub 10 $a }}
+                    {{- if le $i 0 }}{{ $i = 0 }}{{ end }}
+                    {{- range seq $i }}
+                    <tr class="empty">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {{- end }}
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

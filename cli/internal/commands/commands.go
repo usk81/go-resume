@@ -33,7 +33,7 @@ func Exit(err error, codes ...int) {
 	} else {
 		code = 2
 	}
-	fmt.Println(err)
+	fmt.Printf("%+v\n", err)
 	os.Exit(code)
 }
 
