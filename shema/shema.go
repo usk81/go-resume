@@ -2,6 +2,7 @@ package shema
 
 type Resume struct {
 	Basics       Basics        `json:"basics"`
+	Japanese     Japanese      `json:"japanese"`
 	Work         []Work        `json:"work" validate:"omitempty,dive,required"`
 	Volunteer    []Volunteer   `json:"volunteer" validate:"omitempty,dive,required"`
 	Education    []Education   `json:"education" validate:"omitempty,dive,required"`
@@ -40,6 +41,15 @@ type Profile struct {
 	Network  string `json:"network"`
 	UserName string `json:"username"`
 	URL      string `json:"url" validate:"omitempty,url"`
+}
+
+// Japanese is information for JAPANESE resume
+type Japanese struct {
+	NameRuby          string   `json:"name_ruby"`
+	LocationRuby      Location `json:"location_ruby"`
+	Gender            string   `json:"gender"`
+	Birthday          string   `json:"birthday"`
+	ReasonForApplying string   `json:"reason_for_applying"`
 }
 
 type Work struct {
